@@ -1,0 +1,32 @@
+
+
+  .container {
+    max-width: 90vw;
+  }
+  
+  .left-pane {
+    flex: 1;
+    padding: 20px;
+  }
+  .right-pane {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+
+
+  .fadeInOut {
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  .fadeInOut.ng-enter,
+  .fadeInOut.ng-leave {
+    opacity: 0;
+  }
+  
+  .fadeInOut.ng-enter-active,
+  .fadeInOut.ng-leave-active {
+    opacity: 1;
+  }

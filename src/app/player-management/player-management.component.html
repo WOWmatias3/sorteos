@@ -1,0 +1,72 @@
+<div class="container mx-auto p-4 flex justify-between items-start space-x-4 w-full" style="opacity: 1;">
+    <div class="left-pane w-1/2 text-center">
+        <div class="flex items-center flex-col">
+            <h2 class="text-xl font-bold mb-2">Agregar Jugadores</h2>
+            <form (ngSubmit)="addPlayer()">
+                <mat-form-field class="example-full-width">
+                <input matInput placeholder="Nombre del jugador" [(ngModel)]="newPlayerName" name="playerName">
+                </mat-form-field>
+                <button mat-raised-button color="primary" class="w-full mt-2 mb-4" type="submit">Agregar</button>
+                
+            </form>
+            <p class="mt-5">Total de Jugadores: {{ players.length }}</p>
+        </div>
+      
+  
+      <!-- Detalles de jugador seleccionado -->
+      
+      <h1>GRUPOS</h1>
+      <div *ngFor="let player of sortedPlayers" class="flex justify-between font-semibold">
+        <p  >{{player.name}}, Grupo : {{ player.grupo ? player.grupo : 'sin definir'}}</p>
+        <img (click)="borrarJugador(player.id)" src="https://cdn-icons-png.freepik.com/512/542/542724.png" class="ml-2" alt="borrarIcon" style="height: 20px; width: 20px; cursor: pointer;">
+      </div>
+    </div>
+    
+    <div class="right-pane w-1/2 flex flex-col items-end">
+      <!-- Selector para elegir jugador a sortear -->
+      <mat-form-field class="example-full-width">
+        <mat-label>Elegir jugador a sortear</mat-label>
+        <mat-select [(ngModel)]="selectedPlayer" name="selectedPlayer" [disabled]="sorteando">
+          <mat-option *ngFor="let player of allowedPlayers" [value]="player">{{ player.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div *ngIf="selectedPlayer" class="mt-4">
+        <h3 class="text-lg font-bold">Detalles del Jugador</h3>
+        <p>ID: {{ selectedPlayer.id }}</p>
+        <p>Nombre: {{ selectedPlayer.name }}</p>
+        <p>Sorteado: {{ selectedPlayer.sorteado ? 'Sí' : 'No' }}</p>
+        <p>Grupo: {{ selectedPlayer.grupo || 'No asignado' }}</p>
+      </div>
+
+      <button mat-raised-button color="accent" class="w-full mb-4" (click)="drawGroups()">Sortear</button>
+
+      <div *ngIf="showingNames" class="mt-4">
+        <p class="text-lg font-bold">Grupo Seleccionado...</p>
+        <div>
+            <h3 class="text-lg font-bold" *ifChanges="selectedGroup" [@myTrigger]>{{ selectedGroup }}</h3>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  
+  <!-- Lista de jugadores sorteado -->
+  <ul class="mt-4">
+    <li *ngIf="showFinalPlayer" class="mb-1 p-2 bg-gray-100 rounded shadow">
+      Jugador sorteado: {{ jugadorSorteado }}
+    </li>
+  </ul>
+  
+  <!-- Lista de grupos 
+  <div class="mt-4">
+    <h3 class="text-lg font-bold mb-2">Grupos</h3>
+    <ul *ngFor="let group of groups; let i = index" class="mb-4">
+      <li class="font-bold">Grupo {{ group[0].grupo }}:</li>
+      <li *ngFor="let player of group" class="ml-2">
+        {{ player.name }}
+      </li>
+    </ul>
+  </div>
+  -->
+  
